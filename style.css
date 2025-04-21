@@ -1,0 +1,657 @@
+:root {
+    /* Dark Theme inspired by reference */
+    --bg-primary: #1a1a2e; /* Deep dark blue/purple */
+    --bg-secondary: #2a2a4e; /* Slightly lighter card background */
+    --bg-tertiary: #4a4a7e; /* For subtle hover or less important elements */
+    --bg-input: #2f2f5f; /* Darker input background */
+    --text-primary: #e0e0ff; /* Light lavender text */
+    --text-secondary: #a0a0cf; /* Lighter grey/blue text */
+    --text-placeholder: #7070af; /* Placeholder text */
+    --border-color: #5a5a9e; /* Subtle border */
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --accent-purple: #8a3ffc;
+    --accent-blue: #33b1ff;
+    --accent-pink: #ff7eb6;
+    --accent-orange: #ff7844; /* Keep orange for calories-in? */
+    --accent-green: #3ddc84; /* Keep green for calories-out? */
+    --accent-red: #ff5050;   /* For delete/errors */
+    
+    /* Gradients */
+    --gradient-outline: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-pink));
+    --gradient-button: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+
+    /* Others */
+    --button-text-color: #ffffff;
+    --outline-width: 2px;
+    --button-border-radius: 12px;
+    --card-border-radius: 16px;
+    --input-border-radius: 10px;
+    --transition-speed: 0.2s;
+    --container-max-width: 700px;
+}
+
+/* --- Apply Variables --- */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.main-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+}
+
+h1, h2, h3 {
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--text-primary); 
+    margin-bottom: 5px;
+}
+h2 {
+     font-size: 1.4em;
+     color: var(--text-secondary);
+}
+h3 {
+    font-size: 1.2em;
+    color: var(--text-secondary);
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+/* Helper class for elements needing the outline */
+.gradient-outline-card {
+    border-radius: var(--card-border-radius);
+    padding: var(--outline-width);
+    position: relative;
+    background-color: transparent;
+    z-index: 0;
+    margin-bottom: 20px;
+}
+
+.gradient-outline-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--gradient-outline);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0.6;
+    transition: opacity var(--transition-speed) ease;
+    pointer-events: none;
+}
+
+.gradient-outline-card:hover::before {
+     opacity: 0.9;
+}
+
+/* Apply the outline class where needed */
+.goal-section,
+form,
+#calorie-summary-panel,
+.food-log-item,
+.log-history-container {
+    /* These elements get the outline via the class */
+}
+
+/* Inner content styling */
+.card-content {
+    background-color: var(--bg-secondary);
+    padding: 20px;
+    border-radius: calc(var(--card-border-radius) - var(--outline-width));
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* --- Specific Sections --- */
+
+.day-controls {
+    background: none;
+    padding: 0;
+    margin-bottom: 15px;
+    display: flex; 
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+#current-day-display {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 1.4em;
+}
+
+.goal-section .card-content {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.goal-section label {
+     margin-right: 15px;
+     color: var(--text-secondary);
+     font-weight: normal;
+}
+
+/* --- Form Inputs --- */
+form label {
+     display: block;
+     margin-bottom: 8px;
+     color: var(--text-secondary);
+     font-weight: normal;
+     font-size: 0.95em;
+}
+
+form input[type="text"],
+form input[type="number"] {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--input-border-radius);
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+form input::placeholder {
+    color: var(--text-placeholder);
+}
+form input:focus {
+    outline: none;
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 2px rgba(138, 63, 252, 0.3);
+}
+
+/* --- Buttons --- */
+
+/* General Button Reset */
+button,
+.nav-button {
+    cursor: pointer;
+    border-radius: var(--button-border-radius);
+    border: none;
+    padding: 12px 25px;
+    font-weight: bold;
+    transition: background var(--transition-speed) ease, transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-size: 1em;
+    position: relative;
+    box-shadow: none;
+    background-clip: border-box;
+}
+/* Remove general ::before outline */
+button::before,
+.nav-button::before {
+    content: none;
+}
+
+/* Primary Action Button (Add Item) */
+form button[type="submit"] {
+    background: var(--gradient-button);
+    color: var(--button-text-color);
+    width: 100%;
+    margin-top: 10px;
+}
+form button[type="submit"]:hover {
+    opacity: 0.9;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Secondary Buttons (like cards) */
+#new-day-btn,
+.nav-button,
+.log-page-actions .clear-btn {
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 10px 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+#new-day-btn:hover,
+.nav-button:hover,
+.log-page-actions .clear-btn:hover {
+    background-color: var(--bg-tertiary);
+    border-color: var(--accent-blue);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
+.log-page-actions .clear-btn {
+     border-color: var(--accent-red);
+     color: var(--accent-red);
+}
+.log-page-actions .clear-btn:hover {
+     background-color: var(--accent-red);
+     border-color: var(--accent-red);
+     color: white;
+}
+
+/* --- Food Log List --- */
+ul#food-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+}
+
+.food-log-item {
+    margin-bottom: 15px;
+}
+.food-log-item .card-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+.item-name {
+    flex-grow: 1;
+    font-size: 1em;
+}
+.item-calories {
+    min-width: auto;
+    text-align: right;
+    margin-right: 0;
+    font-size: 1em;
+}
+.item-actions {
+    margin-left: auto;
+}
+.item-actions button {
+    background: none;
+    color: var(--text-secondary);
+    border-radius: 8px;
+    padding: 6px;
+    width: 28px;
+    height: 28px;
+    font-size: 1.1em;
+    line-height: 1;
+}
+.item-actions button:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    transform: none;
+}
+
+/* --- Summary Panel --- */
+#calorie-summary-panel .card-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+}
+.summary-metric {
+    background-color: var(--bg-primary);
+    flex-basis: calc(50% - 5px);
+    padding: 15px;
+    border-radius: var(--button-border-radius);
+    text-align: center;
+    min-width: 0;
+}
+.metric-label {
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+.metric-value {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+#calories-in .metric-value { color: var(--accent-orange); }
+#calories-out .metric-value { color: var(--accent-green); }
+#net-calories .metric-value.over-limit { color: var(--accent-red); }
+#goal-display .metric-value { font-size: 1.1em; }
+
+/* Inline Edit Styles */
+.food-log-item.editing .card-content {
+    background-color: var(--bg-tertiary);
+}
+.food-log-item.editing .edit-inputs input {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 8px 12px;
+}
+.food-log-item .edit-actions button {
+     background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 8px 15px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: auto; height: auto;
+}
+.food-log-item .edit-actions button:hover {
+    background-color: var(--bg-tertiary);
+    border-color: var(--accent-blue);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+.food-log-item .edit-actions .save-edit-btn {
+     background-color: var(--accent-green);
+     color: var(--button-text-color);
+     border: none;
+}
+.food-log-item .edit-actions .save-edit-btn:hover { 
+    background-color: var(--accent-green-hover);
+}
+
+/* Logs Page */
+.log-history-container .card-content {
+    padding: 30px;
+}
+.log-entry {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+}
+.log-day { font-weight: normal; }
+.log-net-calories { margin-left: auto; font-weight: bold; }
+.log-page-actions {
+     margin-top: 30px;
+     display: flex; gap: 15px; justify-content: center;
+}
+
+/* Adjust logs.html styles if needed within its own <style> or here */
+.log-history-container {
+     background: var(--bg-secondary);
+     box-shadow: 0 2px 10px var(--shadow-color);
+     border: 1px solid var(--border-color);
+}
+
+.log-history-container h1 {
+     color: var(--text-primary);
+}
+
+#log-list {
+     /* Styles applied via log-entry */
+}
+
+.log-entry {
+    border-bottom: 1px solid var(--border-color);
+    /* Other styles should adapt via variables */
+}
+
+.log-day {
+     color: var(--text-secondary);
+}
+
+.log-net-calories.positive {
+     color: var(--accent-orange);
+}
+
+.log-net-calories.negative {
+     color: var(--positive-color); /* Green for deficit */
+}
+
+.log-page-actions .clear-btn {
+     background-color: var(--accent-red);
+}
+
+.log-page-actions .clear-btn:hover {
+      background-color: var(--accent-red-hover);
+}
+
+/* --- General Button Styling --- */
+button,
+.nav-button {
+    cursor: pointer;
+    border-radius: var(--button-border-radius);
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-size: 0.95em;
+    position: relative;
+}
+
+button:hover,
+.nav-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+button:active,
+.nav-button:active {
+    transform: translateY(0px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+/* --- Specific Button Colors/Overrides --- */
+
+#new-day-btn { background-color: var(--accent-green); }
+form button { background-color: var(--accent-orange); }
+.nav-button { background-color: var(--accent-green); }
+.log-page-actions .clear-btn { background-color: var(--accent-red); }
+.food-log-item .edit-actions .save-edit-btn { background-color: var(--accent-green); }
+
+/* Text color setup for buttons WITH a background */
+#new-day-btn,
+form button,
+.nav-button,
+.log-page-actions .clear-btn,
+.food-log-item .edit-actions .save-edit-btn {
+    color: var(--button-text-color);
+}
+
+/* Cancel button uses default background and text */
+.food-log-item .edit-actions .cancel-edit-btn {
+    color: var(--text-primary);
+}
+
+/* Icon buttons (Edit/Delete) & Theme Toggle - Remove outline */
+.item-actions button,
+.theme-toggle-button {
+    border: none;
+    padding: 5px;
+    background-color: transparent;
+    position: relative;
+}
+.item-actions button::before,
+.theme-toggle-button::before {
+    content: none;
+}
+/* Keep specific icon button styles */
+.item-actions button {
+    /* ... icon size, etc */
+}
+.theme-toggle-button {
+    /* ... size, border, etc */
+}
+
+/* --- Apply Outline to Card Elements --- */
+.goal-section,
+form,
+.food-log-item,
+#calorie-summary-panel,
+.log-history-container {
+    border-radius: var(--card-border-radius);
+    padding: 20px;
+    position: relative;
+    background-color: transparent;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    z-index: 0;
+}
+
+/* Inner container for background & content */
+.card-inner {
+    background-color: var(--bg-secondary);
+    padding: 15px;
+    border-radius: calc(var(--card-border-radius) - var(--outline-width));
+    height: 100%;
+    box-sizing: border-box;
+}
+/* Adjust padding for specific cards */
+form .card-inner { padding: 15px 20px; }
+#calorie-summary-panel .card-inner { padding: 10px; }
+.log-history-container .card-inner { padding: 20px; }
+/* Special handling for summary panel if needed */
+#calorie-summary-panel {
+     padding: 15px;
+     background-color: transparent;
+}
+#calorie-summary-panel .card-inner {
+     display: flex;
+     justify-content: space-around;
+     align-items: stretch;
+     flex-wrap: wrap;
+     gap: 15px;
+     padding: 10px;
+     border-radius: calc(var(--card-border-radius) - var(--outline-width));
+}
+.summary-metric {
+    border-radius: var(--card-border-radius);
+}
+
+/* Pseudo-element for card outline */
+.goal-section::before,
+form::before,
+.food-log-item::before,
+#calorie-summary-panel::before,
+.log-history-container::before {
+    content: none;
+}
+
+.goal-section:hover::before,
+form:hover::before,
+.food-log-item:hover::before,
+#calorie-summary-panel:hover::before,
+.log-history-container:hover::before {
+     opacity: 0.9;
+}
+
+/* Remove direct styles from cards that are now on .card-inner */
+.goal-section, form, .food-log-item, #calorie-summary-panel, .log-history-container {
+     background-color: transparent;
+     padding: 20px;
+}
+
+/* Adjust .food-log-item specific padding */
+.food-log-item .card-inner {
+     padding: 10px 15px;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+}
+
+/* ... rest of styles ... */
+
+/* --- Other UI Polish --- */
+
+input[type="text"],
+input[type="number"] {
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 2px rgba(255, 167, 38, 0.3);
+}
+
+.food-log-item {
+    transition: box-shadow var(--transition-speed) ease-in-out, 
+                background-color var(--transition-speed) ease, 
+                transform var(--transition-speed) ease;
+    border-radius: var(--card-border-radius);
+}
+
+.food-log-item:hover {
+    background-color: var(--bg-tertiary);
+    transform: none;
+}
+
+#calorie-summary-panel {
+    border-radius: var(--card-border-radius);
+}
+
+.summary-metric {
+    border-radius: var(--card-border-radius);
+    transition: background-color var(--transition-speed) ease;
+}
+
+/* Ensure log page styles use consistent radius */
+.log-history-container {
+     border-radius: var(--card-border-radius);
+}
+
+/* logs.html specific button styling */
+.log-page-actions .nav-button,
+.log-page-actions .clear-btn {
+     /* General styles applied above */
+}
+
+.log-page-actions .clear-btn {
+     background-color: var(--accent-red);
+}
+
+.log-page-actions .clear-btn:hover {
+      background-color: var(--accent-red-hover);
+}
+
+/* Style content within gradient sections */
+.goal-section > *,
+form > *,
+#calorie-summary-panel > * {
+    /* This might need adjustment based on exact content */
+}
+
+.goal-section label,
+form label {
+     color: var(--text-primary);
+}
+
+.goal-section input,
+form input[type="text"],
+form input[type="number"] {
+     background-color: rgba(0,0,0,0.2);
+     color: var(--text-primary);
+     border: 1px solid rgba(255,255,255,0.2);
+     border-radius: 4px;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus {
+     border-color: var(--accent-orange);
+     box-shadow: 0 0 0 2px rgba(255, 167, 38, 0.3);
+}
+
+#calorie-summary-panel {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+}
+
+.summary-metric {
+    background-color: var(--bg-secondary);
+    border-radius: var(--card-border-radius);
+    padding: 10px;
+    text-align: center;
+    flex: 1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border: none;
+}
+
+/* Remove ::before from specific buttons */
+#new-day-btn::before, 
+form button::before, 
+.nav-button::before, 
+.log-page-actions .clear-btn::before,
+.food-log-item .edit-actions button::before {
+    content: none;
+} 

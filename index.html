@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Tracker</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <h1>Calorie Tracker</h1>
+
+        <div class="day-controls">
+            <h2 id="current-day-display">Day 1 Log</h2>
+            <button id="new-day-btn">Start New Day</button>
+        </div>
+
+        <div class="goal-section gradient-outline-card">
+            <div class="card-content">
+                <label for="calorie-goal-input">Daily Calorie Goal:</label>
+                <input type="number" id="calorie-goal-input" value="2000">
+            </div>
+        </div>
+
+        <form id="food-form" class="gradient-outline-card">
+            <div class="card-content">
+                <div>
+                    <label for="food-name">Item Name (e.g., Apple, Running):</label>
+                    <input type="text" id="food-name" placeholder="Enter item name" required>
+                </div>
+                <div>
+                    <label for="calories">Calories (+/-):</label>
+                    <input type="number" id="calories" placeholder="Enter calories" required>
+                </div>
+                <button type="submit">Add Item</button>
+            </div>
+        </form>
+
+        <h3>Today's Items</h3>
+        <ul id="food-list">
+            <!-- Items -->
+        </ul>
+
+        <div id="calorie-summary-panel" class="gradient-outline-card">
+            <div class="card-content">
+                <div class="summary-metric" id="calories-in">
+                    <span class="metric-label">Calories In</span>
+                    <span class="metric-value">0 kcal</span>
+                </div>
+                <div class="summary-metric" id="calories-out">
+                    <span class="metric-label">Calories Out</span>
+                    <span class="metric-value">0 kcal</span>
+                </div>
+                <div class="summary-metric" id="net-calories">
+                    <span class="metric-label">Net Calories</span>
+                    <span class="metric-value">0 kcal</span>
+                </div>
+                <div class="summary-metric" id="goal-display">
+                    <span class="metric-label">Goal / Remaining</span>
+                    <span class="metric-value"><span id="calorie-goal-val">2000</span> / <span id="calories-remaining-val">2000</span> kcal</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-area">
+             <a href="logs.html" class="nav-button view-logs-btn">View Log History</a>
+        </div>
+    </div> <!-- End of main-container -->
+
+    <script src="script.js"></script>
+</body>
+</html> 

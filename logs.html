@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log History - Calorie Tracker</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="style.css"> <!-- Link the same stylesheet -->
+    <style>
+        /* Styles specific to logs page - using variables */
+        body {
+            /* background-color: #f8f8f8; Inherited from style.css body */
+        }
+        .log-history-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: var(--bg-secondary); /* Use variable */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px var(--shadow-color); /* Use variable */
+            border: 1px solid var(--border-color); /* Use variable */
+        }
+        /* h1 inherits color from style.css */
+        h1 {
+             margin-bottom: 25px;
+        }
+
+        #log-list {
+            list-style: none;
+            padding: 0;
+        }
+        .log-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color); /* Use variable */
+            font-size: 1.1em;
+        }
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+        .log-day {
+            color: var(--text-secondary); /* Use variable */
+            font-weight: bold;
+        }
+        .log-net-calories {
+            font-weight: bold;
+            /* Color set by positive/negative classes */
+        }
+        .log-net-calories.positive {
+            color: var(--accent-orange); /* Use theme variable */
+        }
+        .log-net-calories.negative {
+            color: var(--positive-color); /* Use theme variable (deficit is 'good') */
+        }
+
+        .log-page-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        /* nav-button styles inherited from style.css */
+
+        .clear-btn {
+             background-color: var(--accent-red); /* Use variable */
+        }
+
+        .clear-btn:hover {
+             background-color: var(--accent-red-hover); /* Use variable */
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="log-history-container gradient-outline-card">
+            <div class="card-content">
+                 <h1>Log History</h1>
+                 <ul id="log-list">
+                     <!-- Log entries -->
+                 </ul>
+                 <div class="log-page-actions">
+                    <a href="index.html" class="nav-button">Back to Tracker</a>
+                    <button id="clear-logs-btn" class="nav-button clear-btn">Clear All Logs</button>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+    <script src="logs.js"></script>
+</body>
+</html> 
